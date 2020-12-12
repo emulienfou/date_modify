@@ -1,22 +1,47 @@
-from datetime import datetime
+import unittest
+import datetime
 from date_modify import DateModify
 
 
-def tests():
-    dm = DateModify(datetime.now())
+class TestDateModify(unittest.TestCase):
+    def setUp(self):
+        super(TestDateModify, self).setUp()
+        d = datetime.datetime(year=2020, month=1, day=1)
+        self.dm = DateModify(d)
 
-    print("yesterday: " + dm.modify("yesterday").isoformat())
-    print("yesterday 14:00: " + dm.modify("yesterday 14:00").isoformat())
-    print("yesterday noon: " + dm.modify("yesterday noon").isoformat())
-    print("midnight: " + dm.modify("midnight").isoformat())
-    print("today: " + dm.modify("today").isoformat())
-    print("noon: " + dm.modify("noon").isoformat())
-    print("tomorrow: " + dm.modify("tomorrow").isoformat())
-    print("next thursday: " + dm.modify("next thursday").isoformat())
-    print("last friday: " + dm.modify("last friday").isoformat())
-    print("Monday: " + dm.modify("Monday").isoformat())
-    print("next thursday +15 hours: " + dm.modify("next thursday +15 hours").isoformat())
+    def test_yesterday(self):
+        self.assertEqual(self.dm.modify("yesterday").isoformat(), '2019-12-31T00:00:00')
+
+    def test_yesterday_noon(self):
+        self.assertEqual(self.dm.modify("yesterday noon").isoformat(), '2019-12-31T12:00:00')
+
+    def test_yesterday_time(self):
+        self.assertEqual(self.dm.modify("yesterday 14:00").isoformat(), '2019-12-31T14:00:00')
+
+    def test_midnight(self):
+        self.assertEqual(self.dm.modify("midnight").isoformat(), '2020-01-01T00:00:00')
+
+    def test_today(self):
+        self.assertEqual(self.dm.modify("today").isoformat(), '2020-01-01T00:00:00')
+
+    def test_noon(self):
+        self.assertEqual(self.dm.modify("noon").isoformat(), '2020-01-01T12:00:00')
+
+    def test_tomorrow(self):
+        self.assertEqual(self.dm.modify("tomorrow").isoformat(), '2020-01-02T00:00:00')
+
+    def test_next_dayname(self):
+        self.assertEqual(self.dm.modify("next thursday").isoformat(), '2020-01-02T00:00:00')
+
+    def test_next_dayname_more(self):
+        self.assertEqual(self.dm.modify("next thursday +15 hours").isoformat(), '2020-01-02T15:00:00')
+
+    def test_last_dayname(self):
+        self.assertEqual(self.dm.modify("last friday").isoformat(), '2019-12-27T00:00:00')
+
+    def test_weekday(self):
+        self.assertEqual(self.dm.modify("Monday").isoformat(), '2020-01-06T00:00:00')
 
 
 if __name__ == '__main__':
-    tests()
+    unittest.main()

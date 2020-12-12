@@ -52,11 +52,13 @@ class DateModify:
         elif re.match(NEXT_WEEK_REGEX, modifier):
             the_day = re.match(NEXT_WEEK_REGEX, modifier).group(1)
             return self.get_next_dayname(the_day)
+        # Next `dayname` with increase|decrease of unit time
         elif re.match(NEXT_WEEK_MORE_REGEX, modifier):
             regex = re.match(NEXT_WEEK_MORE_REGEX, modifier)
             next_day = self.get_next_dayname(regex.group(1))
             return self.increase_decrease_unit(datetime=next_day, operator=regex.group(2), value=regex.group(3),
                                                unit=regex.group(4))
+        # Last `dayname`
         elif re.match(r'^last (\w+)$', modifier):
             the_day = re.match(r'(?i)^last (.*)$', modifier).group(1)
             this_day = self.datetime - timedelta(days=1)
