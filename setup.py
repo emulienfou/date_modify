@@ -9,7 +9,7 @@ setup(
     author='emulienfou',
     author_email='emulienfou@gmail.com',
     url='https://github.com/emulienfou',
-    download_url='https://github.com/emulienfou/date_modify/archive/v0.1-beta.tar.gz',
+    download_url='https://github.com/emulienfou/date_modify/archive/v0.1.tar.gz',
     keywords=['php', 'date_modify', 'DateTime::modify', 'DateTime', 'modify'],
     install_requires=['python-dateutil', 'six'],
     classifiers=[

@@ -1,2 +1,5 @@
-venv/
-.idea/
+# Build
+dist/
+
+venv
+.idea
